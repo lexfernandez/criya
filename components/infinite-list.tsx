@@ -30,7 +30,7 @@ const InfiniteList = ({
   return (
     <div className="flex flex-col justify-center">
       {children}
-      {hasMoreData && <div className="h-5 bg-outer-space" ref={ref}>{isFetchingMore ? "fetching more" : null}</div>}
+      {hasMoreData && <div className="h-5 bg-outer-space" ref={ref}  data-testid="anchor">{isFetchingMore ? "fetching more" : null}</div>}
       {!hasMoreData && <div className="bg-pale-silver text-center p-5">You just browsed through all our results!</div>}
     </div>
   );
