@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import ProductList from "../../components/product-list";
+import InfiniteList from "../../components/infinite-list";
 import {Default as ProductItem} from "./product.stories";
 
 export default {
   title: "Components/Product List",
-  component: ProductList,
-} as ComponentMeta<typeof ProductList>;
+  component: InfiniteList,
+} as ComponentMeta<typeof InfiniteList>;
 
-const Template: ComponentStory<typeof ProductList> = (args) => (
-  <ProductList {...args} />
+const Template: ComponentStory<typeof InfiniteList> = (args) => (
+  <InfiniteList {...args} />
 );
 
 export const OneProduct = Template.bind({});

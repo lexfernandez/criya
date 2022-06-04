@@ -5,7 +5,7 @@ type ProductImage = {
     width: number;
     height: number;
     url: string;
-    thumbnails: Thumbnail[];
+    thumbnails: {[key: string]: Thumbnail};
 };
 
 export default ProductImage;
