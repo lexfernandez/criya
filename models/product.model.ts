@@ -6,6 +6,7 @@ type Product = {
     description: string;
     inStock: boolean;
     materials?: string[];
+    type?: string;
     size?: string;
     unitCost: number;
     vendors: string[];
