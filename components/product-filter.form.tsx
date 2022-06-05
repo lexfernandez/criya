@@ -28,7 +28,7 @@ const ProductFilter = ({ onSubmit }: Props) => {
                 type="search"
                 id="name"
                 name="name"
-                data-testId="name"
+                data-testid="name"
                 value={formik.values.name || ""}
                 onChange={formik.handleChange}
                 placeholder="search by name"
@@ -54,7 +54,7 @@ const ProductFilter = ({ onSubmit }: Props) => {
               <input
                 id="inStock"
                 name="inStock"
-                data-testId="inStock"
+                data-testid="inStock"
                 type="checkbox"
                 checked={formik.values.inStock!}
                 className="
@@ -75,7 +75,7 @@ const ProductFilter = ({ onSubmit }: Props) => {
                 <CurrencyInput
                   id="minPrice"
                   name="minPrice"
-                  data-testId="minPrice"
+                  data-testid="minPrice"
                   prefix="$"
                   allowNegativeValue={false}
                   defaultValue={formik.values.minPrice}
