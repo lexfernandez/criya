@@ -14,7 +14,7 @@ const ProductItem = ({ product }: Props) => {
         </div>
         <div className="col-span-3">
           <div className="font-monserrat font-bold">{product.name}</div>
-          <div className="font-monserrat font-bold text-pale-silver opacity-40 flex-nowrap">by{product.vendors.map(vendor=><span className="pl-2 font-semibold">{vendor}</span>)}</div>
+          <div className="font-monserrat font-bold text-pale-silver opacity-40 flex-nowrap">by{product.vendors.map(vendor=><span key={vendor} className="pl-2 font-semibold">{vendor}</span>)}</div>
           <div className="opacity-60 truncate ...">{product.description}</div>
           <div className="opacity-60">{`$ ${product.unitCost.toFixed(2)}`}</div>
         </div>
