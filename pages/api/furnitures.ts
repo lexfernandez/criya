@@ -5,10 +5,10 @@ import Product from "../../models/product.model";
 import ProductImage from "../../models/product-image.model";
 
 Airtable.configure({
-  apiKey: "keylRQl2by4Dg3y0L",
+  apiKey: process.env.AIRTABLE_API_KEY,
 });
 
-const base = Airtable.base("appZIOYZ8GJCqy73d");
+const base = Airtable.base(process.env.AIRTABLE_BASE_ID!);
 
 const recordToProduct = (record: Record<FieldSet>): Product => {
   return {
