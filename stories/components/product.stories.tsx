@@ -1,9 +1,35 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { rest } from "msw";
+import { QueryClient, QueryClientProvider } from "react-query";
 import ProductItem from "../../components/product-item";
+import Vendor from "../../models/vendors.model";
+import vendor from '../../fixtures/vendor.json'
+const queryClient = new QueryClient();
 
 export default {
   title: "Components/Product Item",
   component: ProductItem,
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
+  parameters:{
+    msw:{
+      handlers:{
+        vendors: [
+          rest.get<Vendor[]>('*/api/vendors/*',(req,res,ctx)=>{
+            return res(
+              ctx.status(200),
+              ctx.json(vendor)
+            )
+          })
+        ]
+      }
+    }
+  }
 } as ComponentMeta<typeof ProductItem>;
 
 const Template: ComponentStory<typeof ProductItem> = (args) => (
@@ -42,7 +68,7 @@ Default.args = {
       "Beige",
       "Blue",
     ],
-    vendors: ["rec8116cdd76088af", "rec245db9343f55e8", "rec4f3bade67ff565"],
+    vendors: ["rec8116cdd76088af"],
     images: [
       {
         id: "attzPYQlRQIaZC2gi",

@@ -4,6 +4,8 @@ import Product from "../../models/product.model";
 import Home from "../../pages";
 import { rest } from "msw";
 import furnitures from '../../fixtures/furnitures.json'
+import Vendor from "../../models/vendors.model";
+import vendor from '../../fixtures/vendor.json'
 const queryClient = new QueryClient();
 
 export default {
@@ -25,6 +27,14 @@ export default {
             return res(
               ctx.status(200),
               ctx.json(furnitures)
+            )
+          })
+        ],
+        vendors: [
+          rest.get<Vendor[]>('*/api/vendors/*',(req,res,ctx)=>{
+            return res(
+              ctx.status(200),
+              ctx.json(vendor)
             )
           })
         ]

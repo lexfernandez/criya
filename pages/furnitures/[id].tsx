@@ -1,8 +1,9 @@
 import { GetStaticPathsContext, GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useQueries, useQuery } from "react-query";
 import furnitureService from "../../services/furnitures";
+import vendorsService from "../../services/vendors";
 
 const FurnitureView = () => {
   const router = useRouter();
@@ -14,6 +15,13 @@ const FurnitureView = () => {
     {
       enabled: !!id,
     }
+  );
+
+  const vendors = useQueries(
+    data?.vendors.map((vendorId) => ({
+      queryKey: ["vendor", vendorId],
+      queryFn: () => vendorsService.findById({ id: vendorId }),
+    })) || [],
   );
 
   if(isLoading) return <div className="bg-outer-space text-white p-5 w-full h-full text-center">Loading details</div>
@@ -32,7 +40,7 @@ const FurnitureView = () => {
           )}
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
-            by{data?.vendors.map(vendor=><span key={vendor} className="pl-2 font-semibold">{vendor}</span>)}
+            by{vendors.map(vendor=><span key={vendor.data?.id} className="pl-2 font-semibold">{vendor.data?.name}</span>)}
             </h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
               {data?.name}
