@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import InfiniteList from "../components/infinite-list";
@@ -8,7 +9,7 @@ import ProductItem from "../components/product-item";
 import { Filter } from "../services/Filter";
 import furnitureService from "../services/furnitures";
 
-const Home: NextPage = () => {
+const Furnitures: NextPage = () => {
   const [filter, setFilter] = useState<Filter>();
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
@@ -29,7 +30,11 @@ const Home: NextPage = () => {
     );
 
   const products = data?.pages.map((page) =>
-    page.map((product) => <ProductItem key={product.id} product={product} />)
+    page.map((product) => (
+      <Link href={`/furnitures/${product.id}`}>
+        <a><ProductItem key={product.id} product={product} /></a>
+      </Link>
+    ))
   );
 
   return (
@@ -44,7 +49,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <ProductFilter onSubmit={setFilter}/>
+        <ProductFilter onSubmit={setFilter} />
         <div className="flex justify-center">
           <div className="w-6/12">
             <InfiniteList
@@ -62,5 +67,4 @@ const Home: NextPage = () => {
   );
 };
 
-
-export default Home;
+export default Furnitures;

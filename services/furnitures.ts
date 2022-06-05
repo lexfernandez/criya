@@ -1,4 +1,5 @@
 import axios from "axios";
+import { string } from "yup";
 import Product from "../models/product.model";
 import { Filter } from "./Filter";
 
@@ -23,9 +24,14 @@ class FurnituresService {
           name: filter?.name,
           inStock: filter?.inStock,
           minPrice: filter?.minPrice,
-          maxPrice:filter?.maxPrice,
+          maxPrice: filter?.maxPrice,
         },
       })
+      .then((response) => response.data);
+
+  findById = ({ id, signal }: { id: string, signal?: AbortSignal }) =>
+    axios
+      .get<Product>(`/api/furnitures/${id}`, { signal })
       .then((response) => response.data);
 }
 
