@@ -8,7 +8,7 @@ import ProductItem from "../components/product-item";
 import { Filter } from "../services/Filter";
 import furnitureService from "../services/furnitures";
 
-const Home: NextPage<{ onClick(): void }> = ({ onClick }) => {
+const Home: NextPage = () => {
   const [filter, setFilter] = useState<Filter>();
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
@@ -61,5 +61,6 @@ const Home: NextPage<{ onClick(): void }> = ({ onClick }) => {
     </div>
   );
 };
+
 
 export default Home;
