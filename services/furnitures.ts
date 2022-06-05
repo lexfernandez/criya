@@ -4,12 +4,12 @@ import { Filter } from "./Filter";
 
 class FurnituresService {
   find = ({
-    filter: { name, inStock, minPrice, maxPrice },
+    filter,
     page = 1,
     itemsPerPage = 10,
     signal,
   }: {
-    filter: Filter;
+    filter?: Filter;
     page?: number;
     itemsPerPage?: number;
     signal?: AbortSignal;
@@ -20,10 +20,10 @@ class FurnituresService {
         params: {
           page,
           itemsPerPage,
-          name,
-          inStock,
-          minPrice,
-          maxPrice,
+          name: filter?.name,
+          inStock: filter?.inStock,
+          minPrice: filter?.minPrice,
+          maxPrice:filter?.maxPrice,
         },
       })
       .then((response) => response.data);

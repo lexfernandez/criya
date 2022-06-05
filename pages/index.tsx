@@ -3,27 +3,34 @@ import Head from "next/head";
 import { useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import InfiniteList from "../components/infinite-list";
+import ProductFilter from "../components/product-filter.form";
 import ProductItem from "../components/product-item";
+import { Filter } from "../services/Filter";
 import furnitureService from "../services/furnitures";
 
 const Home: NextPage<{ onClick(): void }> = ({ onClick }) => {
-  const [name, setName] = useState<string | undefined>();
-  const [inStock, setInStock] = useState<boolean | undefined>();
-  const [minPrice, setMinPrice] = useState<number | undefined>();
-  const [maxPrice, setMaxPrice] = useState<number | undefined>();
+  const [filter, setFilter] = useState<Filter>();
 
-  const {data,isLoading, isFetchingNextPage, fetchNextPage,hasNextPage } =useInfiniteQuery(["products",name,inStock,minPrice,maxPrice], ({pageParam, signal }) =>
-    furnitureService.find({ filter: { name,inStock,minPrice,maxPrice },page:pageParam, signal }),
-   {
-    getNextPageParam: (lastPage,allPages)=>{
-      console.log({lastPage})
-      if(lastPage.length) return allPages.length+1;
-      return undefined;
-    }
-   }
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteQuery(
+      ["products", filter],
+      ({ pageParam, signal }) =>
+        furnitureService.find({
+          filter,
+          page: pageParam,
+          signal,
+        }),
+      {
+        getNextPageParam: (lastPage, allPages) => {
+          if (lastPage.length) return allPages.length + 1;
+          return undefined;
+        },
+      }
+    );
+
+  const products = data?.pages.map((page) =>
+    page.map((product) => <ProductItem key={product.id} product={product} />)
   );
-
-  const products = data?.pages.map(page=>page.map(product=><ProductItem key={product.id} product={product} />))
 
   return (
     <div>
@@ -37,9 +44,19 @@ const Home: NextPage<{ onClick(): void }> = ({ onClick }) => {
       </Head>
 
       <main>
-        <InfiniteList isLoading={isLoading} fetchMore={fetchNextPage} isFetchingMore={isFetchingNextPage} hasMoreData={hasNextPage!}>
-          {products}
-        </InfiniteList>
+        <ProductFilter onSubmit={setFilter}/>
+        <div className="flex justify-center">
+          <div className="w-6/12">
+            <InfiniteList
+              isLoading={isLoading}
+              fetchMore={fetchNextPage}
+              isFetchingMore={isFetchingNextPage}
+              hasMoreData={hasNextPage!}
+            >
+              {products}
+            </InfiniteList>
+          </div>
+        </div>
       </main>
     </div>
   );
