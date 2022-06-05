@@ -29,16 +29,13 @@ const recordToProduct = (record: Record<FieldSet>): Product => {
 export default async (req: NextApiRequest, res: NextApiResponse<Product[]>) => {
   let { page="1", itemsPerPage="10", name, inStock, minPrice, maxPrice } = req.query;
 
-
   const expressions: string[] = [];
 
-  console.log({ page, itemsPerPage, name, inStock, minPrice, maxPrice})
   if(name) expressions.push(`find("${name}",{Name})`);
   if(inStock!=undefined) expressions.push(`{In Stock}=${inStock=="true"?1:0}`);
   if(minPrice!=undefined || maxPrice!=undefined) {
     const minPriceExpression = `{Unit cost}>=${minPrice}`
     const maxPriceExpression = `{Unit cost}<=${maxPrice}`
-    console.log({minPriceExpression,maxPriceExpression})
     if(minPrice!=undefined && maxPrice!=undefined){
       expressions.push(`AND(${minPriceExpression},${maxPriceExpression})`);
     }else{
