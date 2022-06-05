@@ -1,12 +1,6 @@
 import axios from "axios";
 import Product from "../models/product.model";
-
-type Filter = {
-  name?: string;
-  inStock?: boolean;
-  minPrice?: number;
-  maxPrice?: number;
-};
+import { Filter } from "./Filter";
 
 class FurnituresService {
   find = ({
