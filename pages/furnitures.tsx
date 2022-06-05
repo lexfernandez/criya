@@ -51,7 +51,7 @@ const Furnitures: NextPage = () => {
       <main>
         <ProductFilter onSubmit={setFilter} />
         <div className="flex justify-center">
-          <div className="w-6/12">
+          <div className="w-full md:w-6/12">
             <InfiniteList
               isLoading={isLoading}
               fetchMore={fetchNextPage}
