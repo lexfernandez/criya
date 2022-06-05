@@ -2,21 +2,12 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import InfiniteList from "../../components/infinite-list";
 import { Default as ProductItem } from "./product.stories";
 import { fireEvent, waitFor, within } from "@storybook/testing-library";
-import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
 
 export default {
   title: "Components/Product List",
   component: InfiniteList,
   argTypes: { fetchMore: { action: true } },
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <Story />
-      </QueryClientProvider>
-    )
-  ],
 } as ComponentMeta<typeof InfiniteList>;
 
 const Template: ComponentStory<typeof InfiniteList> = (args) => (
